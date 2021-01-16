@@ -19,30 +19,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+import Routes from './routes';
+
 function App() {
   const classes = useStyles();
 
   return (
     <Fragment>
-       <Header/>
-      <Grid container direction="column" justify="center" alignContent="center">
-        <Container className={classes.root}>
-          <Grid container justify="center" alignContent="center" className={classes.titleContent}>
-            <Typography variant="overline" component="h5" className={classes.title}>Seu feed</Typography>
-          </Grid>
-          <Grid container spacing={4} justify="center"  >
-            <Grid item xs={12} sm={6} md={4}  >
-              <CardProject/>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <CardProject/>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <CardProject/>
-            </Grid>
-          </Grid>
-        </Container>
-      </Grid>
+       <Routes/>
     </Fragment>
   );
 }

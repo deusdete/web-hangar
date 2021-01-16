@@ -1,9 +1,20 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
-// import { Container } from './styles';
+import Home from './pages/Home';
 
 function Routes() {
-  return <div />;
+  return(
+    <Router>
+      <Switch>
+        <Route path="/" component={Home}/>
+      </Switch>
+    </Router>
+  )
 }
 
 export default Routes;
