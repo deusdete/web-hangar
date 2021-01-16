@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import { useHistory } from 'react-router-dom';
 import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -17,9 +18,14 @@ import PersonIcon from '@material-ui/icons/Person';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import VideoCallIcon from '@material-ui/icons/VideoCall';
+import ExploreIcon from '@material-ui/icons/Explore';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -162,6 +168,8 @@ const useStyles = makeStyles((theme) => ({
 export default function PrimarySearchAppBar(props) {
   const classes = useStyles();
   const theme = useTheme();
+  const history = useHistory();
+
   const [open, setOpen] = React.useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -340,22 +348,54 @@ export default function PrimarySearchAppBar(props) {
           </div>
           <Divider />
           <List>
-            {['Feed', 'Fotos', 'Vídeos', 'Notificações', 'Globe', 'Study'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
+
+              <ListItem button key="Feed" onClick={() => history.push('/')} >
+                <ListItemIcon>
+                  <PersonIcon />
+                </ListItemIcon>
+                <ListItemText primary="Feed" />
               </ListItem>
-            ))}
+
+            <ListItem button key="PostarFoto" onClick={() => history.push('/postar-foto')} >
+              <ListItemIcon>
+                <AddAPhotoIcon />
+              </ListItemIcon>
+              <ListItemText primary="Postar foto" />
+            </ListItem>
+            <ListItem button key="PostarVideo" onClick={() => history.push('/postar-video')} >
+              <ListItemIcon>
+                <VideoCallIcon />
+              </ListItemIcon>
+              <ListItemText primary="Postar vídeo" />
+            </ListItem>
+            <ListItem button key="Notificacoes" onClick={() => history.push('/notificacoes')} >
+              <ListItemIcon>
+                <NotificationsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Notificações" />
+            </ListItem>
+            <ListItem button key="Globe" onClick={() => history.push('/globe')} >
+              <ListItemIcon>
+                <ExploreIcon />
+              </ListItemIcon>
+              <ListItemText primary="Globe" />
+            </ListItem>
+            <ListItem button key="Study" onClick={() => history.push('/study')} >
+              <ListItemIcon>
+                <LibraryBooksIcon />
+              </ListItemIcon>
+              <ListItemText primary="Study" />
+            </ListItem>
           </List>
           <Divider />
           <List>
-            <ListItem button key="Perfil">
+            <ListItem button key="Perfil" onClick={() => history.push('/perfil')} >
               <ListItemIcon>
                 <PersonIcon />
               </ListItemIcon>
               <ListItemText primary="Perfil" />
             </ListItem>
-            <ListItem button key="Minha conta">
+            <ListItem button key="Minha conta" onClick={() => history.push('/minha-conta')} >
               <ListItemIcon>
                 <AccountCircle />
               </ListItemIcon>
