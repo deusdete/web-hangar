@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grow from '@material-ui/core/Grow';
 
 import Header from '../../components/Header';
-import AddFoto from '../../components/AddFoto'
+import AddVideo from '../../components/AddVideo'
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function App() {
+function PostarVideo() {
   const classes = useStyles();
 
   return (
@@ -30,20 +30,20 @@ function App() {
         <Grid container direction="column" justify="center" alignContent="center">
           <Container className={classes.root}>
             <Grid container justify="center" alignContent="center" className={classes.titleContent}>
-              <Typography variant="overline" component="h5" className={classes.title}>Postar uma nova foto</Typography>
+              <Typography variant="overline" component="h5" className={classes.title}>Postar uma novo vídeo</Typography>
             </Grid>
             <Grow
               in={true}
               {...(true ? { timeout: 1000 } : {})}>
               <Grid container spacing={4} justify="center"  >
-                <AddFoto />
+                <AddVideo />
               </Grid>
             </Grow>
           </Container>
         </Grid>
-       </Header>
+      </Header>
     </Fragment>
   );
 }
 
-export default App;
+export default PostarVideo;

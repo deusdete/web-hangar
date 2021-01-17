@@ -12,7 +12,7 @@ import SendIcon from '@material-ui/icons/Send'
 
 import CardProject from '../CardProject'
 
-import imageDefalt from '../../assets/images/default-img.gif'
+import imageVideoDefalt from '../../assets/images/default-video-image.png'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddFoto() {
+export default function AddVideo() {
   const classes = useStyles();
   const [imagePreview, setImagePreview] = useState("")
   const [title, setTitle] = useState("");
@@ -132,7 +132,7 @@ export default function AddFoto() {
           <CardProject
             user="João SIlva"
             date="16/01/2021 16:46"
-            img={imagePreview ? imagePreview : imageDefalt}
+            img={imagePreview ? imagePreview : imageVideoDefalt}
             title={title}
             text={text}
             isExpanded={true} />

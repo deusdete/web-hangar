@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Registro from './pages/Registro';
 import EsqueceuSenha from './pages/EsqueceuSenha';
 import PostarFoto from './pages/PostarFoto';
+import PostarVideo from './pages/PostarVideo';
 
 function Routes() {
   return(
@@ -20,6 +21,7 @@ function Routes() {
         <Route path="/registro" component={Registro}/>
         <Route path="/esqueceu-senha" component={EsqueceuSenha}/>
         <Route path="/postar-foto" component={PostarFoto}/>
+        <Route path="/postar-video" component={PostarVideo}/>
       </Switch>
     </Router>
   )
