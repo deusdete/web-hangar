@@ -1,4 +1,5 @@
-import React from 'react';
+import {useState} from 'react';
+import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import BackgroundLogin from '../../assets/images/background-login.jpg'
+import api from '../../services/api';
 
 function Copyright() {
   return (
@@ -61,6 +63,28 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const classes = useStyles();
+  const history = useHistory();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [erros, setErros] = useState("");
+
+  async function handleLogin(e){
+    e.preventDefault();
+
+    api.post('/auth/login', {email, password}).then(res => {
+      const { token } = res.data;
+
+      sessionStorage.setItem('token', token);
+      api.defaults.authotization = `Bearer ${token}`
+
+      history.push('/');
+    }).catch(err => {
+      console.log(err)
+      setErros("Email ou usuário invalido")
+    })
+  }
+
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -75,6 +99,7 @@ export default function SignInSide() {
             Login
           </Typography>
           <form className={classes.form} noValidate>
+           {erros &&  <Typography variant="caption" color="secondary" >{erros}</Typography>}
             <TextField
               variant="outlined"
               margin="normal"
@@ -83,6 +108,7 @@ export default function SignInSide() {
               id="email"
               label="Email"
               name="email"
+              onChange={e => setEmail(e.target.value)}
               autoComplete="email"
               autoFocus
             />
@@ -92,6 +118,7 @@ export default function SignInSide() {
               required
               fullWidth
               name="password"
+              onChange={e => setPassword(e.target.value)}
               label="Senha"
               type="password"
               id="password"
@@ -102,6 +129,7 @@ export default function SignInSide() {
               label="Lembre-me"
             />
             <Button
+              onClick={handleLogin}
               type="submit"
               fullWidth
               variant="contained"
