@@ -22,6 +22,7 @@ function Routes() {
         <Route path="/esqueceu-senha" component={EsqueceuSenha}/>
         <Route path="/postar-foto" component={PostarFoto}/>
         <Route path="/postar-video" component={PostarVideo}/>
+        <Route path="/navegacao" component={Home}/>
       </Switch>
     </Router>
   )

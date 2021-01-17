@@ -374,7 +374,7 @@ export default function PrimarySearchAppBar(props) {
               </ListItemIcon>
               <ListItemText primary="Notificações" />
             </ListItem>
-            <ListItem button key="Navegacao" onClick={() => history.push('/globe')} >
+            <ListItem button key="Navegacao" onClick={() => history.push('/navegacao')} >
               <ListItemIcon>
                 <ExploreIcon />
               </ListItemIcon>
