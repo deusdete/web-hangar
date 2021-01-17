@@ -85,7 +85,7 @@ export default function AddVideo() {
               />
               <label htmlFor="contained-button-file">
                 <Button variant="contained" color="primary" component="span">
-                  Escolher foto
+                  Escolher vídeo
               </Button>
               </label>
             </Grid>
