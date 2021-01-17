@@ -6,6 +6,7 @@ import Grow from '@material-ui/core/Grow';
 
 import CardProject from '../../components/CardProject';
 import Header from '../../components/Header';
+import AddFoto from '../../components/AddFoto'
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -30,23 +31,10 @@ function App() {
         <Grid container direction="column" justify="center" alignContent="center">
           <Container className={classes.root}>
             <Grid container justify="center" alignContent="center" className={classes.titleContent}>
-              <Typography variant="overline" component="h5" className={classes.title}>Seu feed</Typography>
+              <Typography variant="overline" component="h5" className={classes.title}>Postar uma nova foto</Typography>
             </Grid>
             <Grid container spacing={4} justify="center"  >
-              {[1,2,3,4,5,6].map(item => (
-                <Grow
-                  in={true}
-                  {...(true ? { timeout: 500 * item } : {})}>
-                  <Grid item xs={12} sm={6} md={4}  >
-                    <CardProject
-                      user="João SIlva"
-                      date="16/01/2021 16:46"
-                      img="https://source.unsplash.com/random"
-                      title="Acompanhe a evolução da minha startup. Disponivel para novos negócios!"
-                      text="Se você traçar metas absurdamente altas e falhar, seu fracasso será muito melhor que o sucesso de todos" />
-                  </Grid>
-                </Grow>
-              ))}
+              <AddFoto/>
             </Grid>
           </Container>
         </Grid>

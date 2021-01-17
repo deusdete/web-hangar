@@ -42,9 +42,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard({user, date, img, title, text, isExpanded}) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(isExpanded);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -63,17 +63,17 @@ export default function RecipeReviewCard() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="João da Silva"
-        subheader="16/01/2021 16:46"
+        title={user}
+        subheader={date}
       />
       <CardMedia
         className={classes.media}
-        image="https://source.unsplash.com/random"
-        title="Projeto de joão"
+        image={img}
+        title={`Projeto de ${user}`}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          Acompanhe a evolução da minha startup. Disponivel para novos negócios!
+          {title}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -100,11 +100,9 @@ export default function RecipeReviewCard() {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Uma dica:</Typography>
           <Typography paragraph>
-            Se você traçar metas absurdamente altas e falhar, seu fracasso será muito melhor que o sucesso de todos
+            {text}
           </Typography>
-
         </CardContent>
       </Collapse>
     </Card>

@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Registro from './pages/Registro';
 import EsqueceuSenha from './pages/EsqueceuSenha';
+import PostarFoto from './pages/PostarFoto';
 
 function Routes() {
   return(
@@ -18,6 +19,7 @@ function Routes() {
         <Route path="/login" component={Login}/>
         <Route path="/registro" component={Registro}/>
         <Route path="/esqueceu-senha" component={EsqueceuSenha}/>
+        <Route path="/postar-foto" component={PostarFoto}/>
       </Switch>
     </Router>
   )
