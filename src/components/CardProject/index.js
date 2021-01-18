@@ -78,12 +78,12 @@ export default function RecipeReviewCard({user, date, img, title, text, isExpand
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <Badge badgeContent={15} color="secondary">
+          <Badge badgeContent={0} color="secondary">
             <StarIcon />
           </Badge>
         </IconButton>
         <IconButton aria-label="share">
-          <Badge badgeContent={6} color="secondary">
+          <Badge badgeContent={0} color="secondary">
             <BookmarkIcon />
           </Badge>
         </IconButton>

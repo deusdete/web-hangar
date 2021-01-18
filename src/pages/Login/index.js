@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -16,6 +16,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import BackgroundLogin from '../../assets/images/background-login.jpg'
 import api from '../../services/api';
+import Context from '../../utils/context';
 
 function Copyright() {
   return (
@@ -62,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignInSide() {
+  const context = useContext(Context);
   const classes = useStyles();
   const history = useHistory();
 
@@ -72,12 +74,7 @@ export default function SignInSide() {
   async function handleLogin(e){
     e.preventDefault();
 
-    api.post('/auth/login', {email, password}).then(res => {
-      const { token } = res.data;
-
-      sessionStorage.setItem('token', token);
-      api.defaults.authotization = `Bearer ${token}`
-
+    context.login(email, password).then(() => {
       history.push('/');
     }).catch(err => {
       console.log(err)

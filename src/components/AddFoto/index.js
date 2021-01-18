@@ -1,18 +1,21 @@
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
+import { format } from 'date-fns'
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import SendIcon from '@material-ui/icons/Send'
 
-
+import api from '../../services/api'
 import CardProject from '../CardProject'
 
 import imageDefalt from '../../assets/images/default-img.gif'
+import Context from '../../utils/context';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -45,10 +48,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddFoto() {
+  const context = useContext(Context)
   const classes = useStyles();
+
+  const [user, setUser] = useState(null)
   const [imagePreview, setImagePreview] = useState("")
+  const [image, setImage] = useState(null)
   const [title, setTitle] = useState("");
-  const [text, setText] = useState("")
+  const [text, setText] = useState("");
+  const [sendig, setSending] = useState(false);
+
+  useEffect(() => {
+    async function obterUser(){
+     const user =  await  context.getUser();
+     setUser(user)
+     console.log(user)
+    }
+
+    obterUser();
+  }, []);
+
+  function getDate(){
+    return format(new Date(), 'dd/MM/yyyy hh:mm');
+  }
 
   function previewFile(e) {
     const file = e.target.files[0];
@@ -59,6 +81,8 @@ export default function AddFoto() {
       reader.addEventListener("load", function () {
         // convert image file to base64 string
         setImagePreview(reader.result);
+        setImage(file)
+        console.log('File:', file)
       }, false);
 
       if (file) {
@@ -67,6 +91,33 @@ export default function AddFoto() {
       }
     }
 
+  }
+
+  async function handleSubmit(e){
+    e.preventDefault()
+    setSending(true);
+
+    const data = new FormData();
+
+    data.append('title', title);
+    data.append('text', text);
+    data.append('image', image)
+
+    api.post('/posts', data).then(res => {
+      const {post} = res.data;
+      console.log(post)
+      setSending(false);
+      setTitle("");
+      setText("");
+      setImage(null);
+      setImagePreview("")
+      setTimeout(() => {
+        alert('Postagem publicada');
+      },1000)
+    }).catch(err => {
+      console.log(err)
+      setSending(false)
+    })
   }
 
   return (
@@ -91,36 +142,37 @@ export default function AddFoto() {
             </Grid>
             <Grid item xs={12} md={8}>
               <TextField
+                value={title}
                 onChange={e => setTitle(e.target.value)}
                 required
                 id="titulo"
                 name="titulo"
                 label="Titulo"
                 fullWidth
-                autoComplete="given-name"
               />
             </Grid>
             <Grid item xs={12} md={8}>
               <TextField
+                value={text}
                 onChange={e => setText(e.target.value)}
                 multiline
                 rows={3}
                 required
-                id="address1"
+                id="text"
                 name="address1"
                 label="Digite uma descrição..."
                 fullWidth
-                autoComplete="shipping address-line1"
               />
             </Grid>
             <Grid item xs={12} md={8}>
               <Button
                 variant="contained"
                 color="primary"
+                onClick={handleSubmit}
                 className={classes.button}
                 endIcon={<SendIcon />}
               >
-                Publicar
+                {sendig ? <CircularProgress color="inherit" /> : 'Publicar'}
             </Button>
             </Grid>
           </Grid>
@@ -130,8 +182,8 @@ export default function AddFoto() {
             Preview
         </Typography>
           <CardProject
-            user="João SIlva"
-            date="16/01/2021 16:46"
+            user={user ? user.username : ''}
+            date={getDate()}
             img={imagePreview ? imagePreview : imageDefalt}
             title={title}
             text={text}

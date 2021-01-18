@@ -300,7 +300,7 @@ export default function PrimarySearchAppBar(props) {
               <FilterListIcon />
             </IconButton>
             <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={5} color="secondary">
+              <Badge badgeContent={0} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -362,17 +362,11 @@ export default function PrimarySearchAppBar(props) {
               </ListItemIcon>
               <ListItemText primary="Postar foto" />
             </ListItem>
-            <ListItem button key="PostarVideo" onClick={() => history.push('/postar-video')} >
+            <ListItem button key="Videos" onClick={() => history.push('/videos')} >
               <ListItemIcon>
                 <VideoCallIcon />
               </ListItemIcon>
-              <ListItemText primary="Postar vídeo" />
-            </ListItem>
-            <ListItem button key="Notificacoes" onClick={() => history.push('/notificacoes')} >
-              <ListItemIcon>
-                <NotificationsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Notificações" />
+              <ListItemText primary="Vídeos" />
             </ListItem>
             <ListItem button key="Navegacao" onClick={() => history.push('/navegacao')} >
               <ListItemIcon>
@@ -380,11 +374,11 @@ export default function PrimarySearchAppBar(props) {
               </ListItemIcon>
               <ListItemText primary="Navegação" />
             </ListItem>
-            <ListItem button key="Study" onClick={() => history.push('/study')} >
+            <ListItem button key="Estudos" onClick={() => history.push('/estudos')} >
               <ListItemIcon>
                 <LibraryBooksIcon />
               </ListItemIcon>
-              <ListItemText primary="Study" />
+              <ListItemText primary="Estudos" />
             </ListItem>
           </List>
           <Divider />
@@ -395,16 +389,15 @@ export default function PrimarySearchAppBar(props) {
               </ListItemIcon>
               <ListItemText primary="Perfil" />
             </ListItem>
-            <ListItem button key="Minha conta" onClick={() => history.push('/minha-conta')} >
+            {/* <ListItem button key="Minha conta" onClick={() => history.push('/minha-conta')} >
               <ListItemIcon>
                 <AccountCircle />
               </ListItemIcon>
               <ListItemText primary="Minha conta" />
-            </ListItem>
+            </ListItem> */}
           </List>
         </Drawer>
         <main className={classes.content}>
-          <div className={classes.toolbar} />
           {props.children}
         </main>
       {renderMobileMenu}
