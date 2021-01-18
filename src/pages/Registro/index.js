@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import BackgroundRegistro from '../../assets/images/background-registro.jpg'
+import Context from '../../utils/context';
 
 function Copyright() {
   return (
@@ -61,6 +63,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const classes = useStyles();
+  const history = useHistory();
+  const context= useContext(Context);
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [erros, setErros] = useState("");
+
+  async function handleRegistro(e){
+    e.preventDefault();
+
+    context.register(username, email, password).then(() => {
+      history.push('/');
+    }).catch(err => {
+      console.log(err)
+      setErros("Falha ao criar usuário")
+    })
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -74,6 +94,19 @@ export default function SignInSide() {
             Cadastro
           </Typography>
           <form className={classes.form} noValidate>
+          {erros &&  <Typography variant="caption" color="secondary" >{erros}</Typography>}
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Nome de usuário"
+              name="email"
+              onChange={e => setUsername(e.target.value)}
+              autoComplete="username"
+              autoFocus
+            />
             <TextField
               variant="outlined"
               margin="normal"
@@ -82,6 +115,7 @@ export default function SignInSide() {
               id="email"
               label="Email"
               name="email"
+              onChange={e => setEmail(e.target.value)}
               autoComplete="email"
               autoFocus
             />
@@ -92,6 +126,7 @@ export default function SignInSide() {
               fullWidth
               name="password"
               label="Senha"
+              onChange={e => setPassword(e.target.value)}
               type="password"
               id="password"
               autoComplete="current-password"
@@ -105,6 +140,7 @@ export default function SignInSide() {
               fullWidth
               variant="contained"
               color="primary"
+              onClick={handleRegistro}
               className={classes.submit}
             >
               Criar
